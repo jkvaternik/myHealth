@@ -8,7 +8,7 @@ function fromShortFormat(d) {
   return monthNames.indexOf(date[1]) + 1 + '/' + date[0] + '/' + date[2];
 }
 
-Date.prototype.addDays = function(days) {
+Date.prototype.addDays = function (days) {
   var date = new Date(this.valueOf());
   date.setDate(date.getDate() - days);
   return date;
@@ -129,6 +129,16 @@ d3.csv('./data/sleep-analysis.csv',
       .attr("d", d3.line()
         .x(function (d) { return x(d.date) })
         .y(function (d) { return y2(+d.value) })
-      )
+      );
+
+
+    // Using "Minutes in bed" as "Minutes asleep" because
+    // the apple watch data wasn't super great for sleep
+    svg.append("text")
+      .attr("class", "axisLabel")
+      .attr("transform", "rotate(-90)")
+      .attr("x", -height / 2 - 100)
+      .attr("y", width + 50)
+      .text("Minutes Asleep");
   }
 )
